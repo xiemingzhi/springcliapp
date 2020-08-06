@@ -10,9 +10,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
+import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
 @Configuration
 @PropertySource(value = { "classpath:cassandra.properties" })
+@EnableCassandraRepositories(basePackages = "com.example.demo")
 public class CassandraConfiguration extends AbstractCassandraConfiguration {
 
     @Autowired

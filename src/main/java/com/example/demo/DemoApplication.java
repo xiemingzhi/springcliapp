@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.datastax.oss.driver.api.core.CqlSession;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -26,6 +27,9 @@ public class DemoApplication implements CommandLineRunner {
 	@Autowired
 	CassandraConfiguration cassConfig;
 
+	@Autowired
+	PersonRepository repository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 		//System.out.println("finished startup");
@@ -33,6 +37,15 @@ public class DemoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... arg0) throws Exception {
+		//usingTemplate();
+		Iterable<Person> persons = repository.findAll();
+		for (Person person : persons) {
+			LOGGER.info("person id {}, name {}", person.getId(), person.getName());
+		}
+		cassConfig.cassandraSession().destroy();
+	}
+
+	private void usingTemplate() {
 		//CqlSession cqlSession = CqlSession.builder().withKeyspace("showcase").build();
 
 		//CassandraOperations template = new CassandraTemplate(cqlSession);
