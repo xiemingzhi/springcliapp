@@ -27,12 +27,11 @@ public class DemoApplication {
 		MessageProducer producer = context.getBean(MessageProducer.class);
 		MessageListener listener = context.getBean(MessageListener.class);
 		/*
-		 * Sending a Hello World message to topic 'baeldung'. 
-		 * Must be recieved by both listeners with group foo
-		 * and bar with containerFactory fooKafkaListenerContainerFactory
-		 * and barKafkaListenerContainerFactory respectively.
-		 * It will also be recieved by the listener with
-		 * headersKafkaListenerContainerFactory as container factory
+		 * Sending a Hello World message to topic 'general'. 
+		 * Will be received by three listeners 
+		 * fooKafkaListenerContainerFactory
+		 * barKafkaListenerContainerFactory 
+		 * headersKafkaListenerContainerFactory
 		 */
 		producer.sendMessage("Hello, World!");
 		listener.latch.await(10, TimeUnit.SECONDS);
